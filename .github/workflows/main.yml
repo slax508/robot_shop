@@ -1,1 +1,53 @@
-.
+#### ci pipeline
+name: CI
+on:
+push:
+    paths:
+        - 'cart/**'
+
+
+jobs:
+    test:
+        runs-on: node:14
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '14'
+
+            - name: Install dependencies
+              run: |
+                npm install
+
+    build:
+        runs-on: node:14
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '14'
+            - name: Install dependencies
+              run: |
+                npm install
+            - name: Build
+              run: |
+                npm run build
+            - name: docker build
+              run: |
+                docker build -t <DOCKER_USER>/<DOCKER_REPO>:${{ github.run_id }} .
+            - name: scan image
+              run: |
+                docker scan <DOCKER_USER>/<DOCKER_REPO>:${{ github.run_id }}
+            - name: docker push
+              run: |
+                echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+                docker push <DOCKER_USER>/<DOCKER_REPO>:${{ github.run_id }}
+            - name: update image to kubernetes manifest
+              run: |
+                sed -i 's|<DOCKER_USER>/<DOCKER_REPO>:latest|<DOCKER_USER>/<DOCKER_REPO>:${{ github.run_id }}|g' k8s/cart/deployment.yaml
+             
