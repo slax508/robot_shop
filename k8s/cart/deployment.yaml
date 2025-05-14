@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: robot-shop-cart
-        image: sandhya0593/robot-shop-cart:${{ IMAGE_TAG }}
+        image: sandhya0593/robot-shop-cart:${IMAGE_TAG}
         ports:
         - containerPort: 80
