@@ -1,12 +1,11 @@
 #### ci pipeline
 name: CI
 on:
-
-push:
-  branches:
-    - main
-  paths:
-    - 'cart/**'
+  push:
+    branches: 
+      - main
+    paths:
+      - 'cart/**'
 
 
 jobs:
