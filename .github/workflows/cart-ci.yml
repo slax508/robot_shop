@@ -7,21 +7,11 @@ push:
 
 
 jobs:
-    test:
-        runs-on: node:14
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v2
-              with:
-                node-version: '14'
-
-            - name: Install dependencies
-              run: |
-                npm install
-
+    env:
+      DOCKER_USER: sandhya0593
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKER_REPO: robot-shop-cart
+      DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
     build:
         runs-on: node:14
         steps:
