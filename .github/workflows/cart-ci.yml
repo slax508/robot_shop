@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: cart
+        working-directory: ./robot_shop/cart
 
       - name: Build
         run: npm run build
