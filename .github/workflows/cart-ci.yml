@@ -25,23 +25,23 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
         working-directory: ./robot_shop/cart
+        run: npm install
 
       - name: Build
         run: npm run build
 
       - name: Docker build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_REPO }}:${{ github.run_id }} .
+        run: docker build -t ${{ secrets.DOCKER_USER || 'default-user' }}/${{ env.DOCKER_REPO }}:${{ github.run_id }} .
 
       - name: Scan Docker image
-        run: docker scan ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
+        run: docker scan ${{ secrets.DOCKER_USER || 'default-user' }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
 
       - name: Docker push
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
-          docker push ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
+          echo "${{ secrets.DOCKER_PASSWORD || 'default-password' }}" | docker login -u "${{ secrets.DOCKER_USER || 'default-user' }}" --password-stdin
+          docker push ${{ secrets.DOCKER_USER || 'default-user' }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
 
       - name: Update Kubernetes manifest
         run: |
-          sed -i 's|${{ secrets.DOCKER_USER }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
+          sed -i 's|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
