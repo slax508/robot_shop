@@ -44,4 +44,4 @@ jobs:
 
       - name: Update Kubernetes manifest
         run: |
-          sed -i 's|${{ secrets.DOCKER_USER || "sandhya0593" }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
+          sed -i 's|${{ secrets.DOCKER_USER || "sandhya0593" }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER || "sandhya0593" }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
