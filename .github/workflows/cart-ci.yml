@@ -39,9 +39,9 @@ jobs:
 
       - name: Docker push
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD || 'default-password' }}" | docker login -u "${{ secrets.DOCKER_USER || 'default-user' }}" --password-stdin
-          docker push ${{ secrets.DOCKER_USER || 'default-user' }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
+          echo "${{ secrets.DOCKER_PASSWORD || 'default-password' }}" | docker login -u "${{ secrets.DOCKER_USER || 'sandhya0593' }}" --password-stdin
+          docker push ${{ secrets.DOCKER_USER || 'sandhya0593' }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}
 
       - name: Update Kubernetes manifest
         run: |
-          sed -i 's|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
+          sed -i 's|${{ secrets.DOCKER_USER || "sandhya0593" }}/${{ env.DOCKER_REPO }}:latest|${{ secrets.DOCKER_USER || "default-user" }}/${{ env.DOCKER_REPO }}:${{ github.run_id }}|g' k8s/cart/deployment.yaml
