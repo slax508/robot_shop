@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robot-shop-cart
+  labels:
+    app: robot-shop-cart
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: robot-shop-cart
+  template:
+    metadata:
+      labels:
+        app: robot-shop-cart
+    spec:
+      containers:
+      - name: robot-shop-cart
+        image: ghcr.io/sandhya0593/robot-shop-cart:${{ github.sha }}
+        ports:
+        - containerPort: 80
