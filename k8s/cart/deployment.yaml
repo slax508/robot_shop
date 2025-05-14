@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: robot-shop-cart
-        image: sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}
+        image: sandhya0593/robot-shop-cart:{{ .CI_COMMIT_TAG }}
         ports:
-          - containerPort: 80
+        - containerPort: 80
