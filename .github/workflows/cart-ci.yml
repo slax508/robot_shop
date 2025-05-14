@@ -7,7 +7,6 @@ on:
     paths: 
       - 'cart/**'
 
-
 jobs:
   build-and-scan:
     runs-on: ubuntu-latest
@@ -24,7 +23,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # Step 3: SonarQube analysis (assuming SonarQube is configured)
+      # Step 3: SonarQube analysis (commented out for now)
       # - name: SonarQube Scan
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -43,12 +42,11 @@ jobs:
       # Step 5: Install Trivy for scanning
       - name: Install Trivy
         run: |
-            - name: Install Trivy
-  run: |
-         wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_Linux-64bit.tar.gz
-         tar zxvf trivy_Linux-64bit.tar.gz
-         sudo mv trivy /usr/local/bin/
-         trivy --version
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_Linux-64bit.tar.gz
+          tar zxvf trivy_Linux-64bit.tar.gz
+          sudo mv trivy /usr/local/bin/
+          trivy --version
+
       # Step 6: Scan Docker image
       - name: Scan Docker image
         run: |
@@ -66,5 +64,4 @@ jobs:
       # Step 8: Update Kubernetes deployment file
       - name: Update Kubernetes deployment
         run: |
-          sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/srobot-shop-cart:${{ env.IMAGE_TAG }}|" k8s/deployment.yml
-          
+          sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}|" k8s/deployment.yml
