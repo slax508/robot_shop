@@ -14,4 +14,4 @@ RUN npm install
 COPY server.js /opt/server/
 
 CMD ["node", "server.js"]
-### Install Instana agent
+### Install Instana agents

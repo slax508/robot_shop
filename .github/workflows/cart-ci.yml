@@ -26,6 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: cart
 
       - name: Build
         run: npm run build
