@@ -64,4 +64,4 @@ jobs:
       # Step 8: Update Kubernetes deployment file
       - name: Update Kubernetes deployment
         run: |
-          sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}|" k8s/cart/deployment.yaml
+          sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/robot-shop-cart:$IMAGE_TAG|" k8s/cart/deployment.yaml

@@ -1,5 +1,5 @@
 FROM node:14
-# Install Instana agentSs
+# Install Instana agentSss
 
 ENV INSTANA_AUTO_PROFILE true
 
