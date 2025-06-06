@@ -62,7 +62,7 @@ jobs:
           docker push sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}
 
       # Step 8: Update Kubernetes deployment file
-           - name: Update Kubernetes deployment file with new image tag
+      - name: Update Kubernetes deployment file with new image tag
         run: |
           sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}|" k8s/cart/deployment.yaml
           git config --global user.name "slax508"
