@@ -62,11 +62,15 @@ jobs:
           docker push sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}
 
       # Step 8: Update Kubernetes deployment file
-      - name: Update Kubernetes deployment file with new image tag
+           
+      - name: Commit and push updated deployment.yaml
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           sed -i "s|image: sandhya0593/robot-shop-cart:.*|image: sandhya0593/robot-shop-cart:${{ env.IMAGE_TAG }}|" k8s/cart/deployment.yaml
           git config --global user.name "slax508"
           git config --global user.email "sankulaxman1998@gmail.com"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git
           git add k8s/cart/deployment.yaml
-          git commit -m "Update cart image tag to ${{ env.IMAGE_TAG }}"
+          git commit -m "Update cart image tag to ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
           git push
