@@ -15,6 +15,6 @@ RUN npm install
 
 
 CMD ["node", "server.js"]
-### Install Instana agentss
+### Install Instana agents
 ## networkdsnn
 ## u[pda
